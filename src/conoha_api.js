@@ -1,4 +1,7 @@
 import * as axios from "axios";
+import * as log4js from "log4js";
+const logger = log4js.getLogger();
+logger.level = process.env.LOG_LEVEL || "info";
 
 export default class CoNoHaAPI {
   constructor(username = "", password = "", region = "tyo1", tenant_id = "") {
@@ -49,9 +52,9 @@ export default class CoNoHaAPI {
     let res;
     try {
       res = await this.axios.request(options);
-      console.debug({ res, data: JSON.stringify(res?.data) });
+      logger.debug({ res, data: JSON.stringify(res?.data) });
     } catch (error) {
-      console.error({error: error});
+      logger.error({error: error});
       throw error;
     }
     return res;
