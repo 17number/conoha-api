@@ -41,8 +41,16 @@ export default class CoNoHaBase {
       res = await this.axios.request(options);
       this.logger.debug({ res, data: JSON.stringify(res?.data) });
     } catch (error) {
-      this.logger.error({ error, config: error.config });
-      throw error;
+      if (error.status?.response >= 400) {
+        this.logger.error({
+          error,
+          config: error.config,
+          response: error.response
+        });
+        throw error;
+      }
+
+      res = error.response;
     }
     return res;
   }
