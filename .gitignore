@@ -123,3 +123,6 @@ Temporary Items
 
 # babel
 dist
+
+# direnv
+.envrc
